@@ -1,0 +1,18 @@
+WITH cte AS
+(
+    SELECT
+        *,
+        DATEADD(d, - ROW_NUMBER() OVER(ORDER BY End_Date), End_Date) AS lead_date
+FROM Projects
+)
+,cte2 AS
+(
+    SELECT
+        MIN(Start_Date) AS Start_Date,
+        MAX(End_Date) AS End_Date,
+        COUNT(*) AS cnt
+    FROM cte
+    GROUP BY lead_date
+)
+SELECT Start_Date, End_Date
+FROM cte2 ORDER BY cnt, Start_Date
