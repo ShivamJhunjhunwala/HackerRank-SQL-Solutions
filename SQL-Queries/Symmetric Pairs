@@ -1,0 +1,14 @@
+with cte as
+(
+    select distinct f1.x as x1,
+           f1.y as y1,
+           f2.x as x2,
+           f2.y as y2
+    from functions f1
+    left join functions f2
+    on f1.x = f2.y and f1.y= f2.x 
+)
+select x1,y1 
+from cte 
+where x1 <= y1
+order by 1
