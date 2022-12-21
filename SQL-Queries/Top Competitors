@@ -1,0 +1,14 @@
+select h.hacker_id, name 
+from hackers as h 
+join
+    (select s.hacker_id 
+     from submissions as s 
+     join (select challenge_id, hacker_id, score from Challenges as c 
+            join Difficulty as d on c.difficulty_level=d.difficulty_level) as t1 
+     on s.challenge_id=t1.challenge_id 
+     where s.score=t1.score)
+as t2
+on h.hacker_id=t2.hacker_id
+group by h.hacker_id, name
+having count(h.hacker_id)>1
+order by count(h.hacker_id) desc, h.hacker_id asc;``
