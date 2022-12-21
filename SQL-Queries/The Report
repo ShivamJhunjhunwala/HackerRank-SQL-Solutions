@@ -1,0 +1,7 @@
+select (case when students.marks < 70 then null else students.name end) as name, (
+    select grade from grades
+    where students.marks >= grades.min_mark
+    order by grades.grade desc
+    limit 1) as grade, students.marks
+from students
+order by grade desc, if(grade in (8,9,10), name, marks);
