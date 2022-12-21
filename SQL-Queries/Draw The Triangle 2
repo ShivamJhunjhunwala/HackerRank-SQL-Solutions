@@ -1,0 +1,6 @@
+DECLARE @ASTER INT = 1;
+WHILE @ASTER <= 20
+    BEGIN
+        PRINT REPLICATE('* ',@ASTER);
+        SET @ASTER += 1;
+    END;
