@@ -1,0 +1,7 @@
+DECLARE @P INT = 20;
+ 
+WHILE @P >= 1
+    BEGIN
+        PRINT REPLICATE('* ',@P);
+        SET @P = @P - 1;
+    END;
