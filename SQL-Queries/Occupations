@@ -1,0 +1,11 @@
+WITH CTE AS (
+select *, ROW_NUMBER() OVER(PARTITION BY OCCUPATION ORDER BY NAME) AS RN
+from Occupations)
+
+SELECT 
+max(CASE WHEN OCCUPATION= 'Doctor' then Name end) as Doctor,
+max(CASE when OCCUPATION= 'Professor' then Name end) as Professor,
+max(CASE when OCCUPATION= 'Singer' then Name end) as Singer,
+max(CASE when OCCUPATION= 'Actor' then Name end) as Actor
+FROM CTE
+group by RN
