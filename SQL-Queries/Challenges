@@ -1,0 +1,35 @@
+with cte as (
+Select 
+    a.hacker_id, 
+    name, 
+    count(*) as counter
+from 
+    Hackers a
+Inner join 
+    Challenges b
+On 
+    a.hacker_id = b.hacker_id
+group by 
+    a.hacker_id, name
+)
+Select 
+    hacker_id, 
+    name, 
+    counter
+from cte
+where counter not in (
+    Select 
+        distinct counter
+    from 
+        cte
+    where 
+        counter <> (select max(counter) from cte)
+    group by 
+        counter
+    having 
+        count(counter) > 1
+    )
+order by 
+    counter desc, 
+    hacker_id
+;
