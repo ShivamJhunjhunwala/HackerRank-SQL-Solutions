@@ -1,0 +1,19 @@
+DECLARE @NUMERO INT, @J INT, @RES VARCHAR(2000)
+SET @NUMERO = 2
+SET @RES = ''
+
+WHILE (@NUMERO != 1000)
+BEGIN
+    SET @J = 2
+    WHILE(@J != @NUMERO AND @NUMERO%@J != 0)
+    BEGIN
+        SET @J = @J + 1
+    END
+    
+    IF (@J = @NUMERO) 
+        SET @RES = CONCAT(@RES,@NUMERO,'&')
+        
+    SET @NUMERO = @NUMERO + 1
+END 
+
+SELECT LEFT(@RES, NULLIF(LEN(@RES)-1,-1))
