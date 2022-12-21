@@ -1,0 +1,10 @@
+select 
+    SUBSTRING_INDEX(GROUP_CONCAT(w.id order by w.coins_needed asc), ",", 1) as id,
+    wp.age as age,
+    SUBSTRING_INDEX(GROUP_CONCAT(w.coins_needed order by w.coins_needed asc), ",", 1) as coins_needed,
+    w.power as power
+from wands w inner join wands_property wp 
+on w.code = wp.code 
+where wp.is_evil = 0
+group by wp.age, w.power
+order by w.power desc, wp.age desc;
